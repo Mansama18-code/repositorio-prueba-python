@@ -1,1 +1,2 @@
 Este espacio para ejecutar los diferentes proyectos realizados en Python.
+Estos ejercicios son de los estudios que estoy realizando en el Master Universitario en Inteligencia Artificial en la Universidad Internacional de la Rioja.
