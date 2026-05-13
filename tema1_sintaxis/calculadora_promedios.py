@@ -1,0 +1,149 @@
+'''
+A. Desarrollo de una calculadora de promedios escolares en Python utilizando variables, operadores, estructuras de control y funciones básicas.
+
+1. Crear un programa que permita al usuario ingresar nombres de materias y sus calificaciones correspondientes (valores entre 0 y 10).
+
+2. Almacenar las materias y calificaciones en estructuras de datos adecuadas (listas).
+
+3. Calcular y mostrar el promedio general de todas las calificaciones ingresadas.
+
+4. Determinar qué materias están aprobadas y reprobadas según un umbral definido (5.0).
+
+5. Identificar y mostrar la materia con la calificación más alta y la más baja.
+
+6. Permitir al usuario agregar tantas materias como desee, con opción para finalizar la entrada de datos.
+
+7. Mostrar un resumen final con toda la información procesada de forma clara.
+
+8. Utilizar exclusivamente programación estructurada (sin clases ni POO).
+
+9. Implementar al menos 3 funciones diferentes para organizar el código.
+
+10.Incluir validación básica de entradas para evitar errores.
+'''
+
+
+def ingresar_calificaciones(calificaciones, materias):
+    """"
+        Función para ingresar materias y calificaciones, con validación de entrada.
+
+        Arg: Calificaciones: Lista para almacenar las calificaciones.
+             Materias: Lista para almacenar los nombres de las materias.
+        Return: Calificaciones y Materias actualizadas con los datos ingresados por el usuario.
+    """
+    i = 0
+    while True:
+        materia = input(f"Ingrese el nombre de la materia {i+1}  ")
+        calificacion = float(input(f"Ingrese la calificación para {materia} (entre 1 y 10): "))
+        if 1 <= calificacion <= 10:
+            materias.append(materia)
+            calificaciones.append(calificacion)
+            i += 1
+        else:
+            print("La calificación debe estar entre 1 y 10. Intente nuevamente.")
+        
+        continuar = input("¿Desea ingresar otra materia? (s/n): ").lower()
+        if continuar != 's':
+            break
+    
+    return calificaciones, materias
+
+def calcular_promedio(calificaciones): #Calcular Promedios de las calificaciones
+    """
+        Función para Calcular el promedio de las calificaciones.
+
+        Arg: Calificaciones: Lista para almacenar las calificaciones.
+             
+        Return: Promedio de las calificaciones ingresadas por el usuario.
+    """
+    
+    if len(calificaciones) == 0:
+        return 0
+    
+    return sum(calificaciones) / len(calificaciones)
+
+def determinar_estado(calificacion, umbral=5.0):
+    """
+        Función para determinar el estado de una materia según su calificación.
+
+        Arg: Calificación: Valor numérico de la calificación de una materia.
+             
+        Return: Estado de la materia (Aprobada, Final o Desaprobada).
+    """
+    i = 0
+    aprobados = []
+    desaprobados = []
+    while i < len(calificacion):
+        
+        if calificacion[i] >= umbral:
+            aprobados.append(i)
+            print("Aprobado")
+
+        else:
+            desaprobados.append(i)
+            print("Desaprobado")
+        i += 1
+    return aprobados, desaprobados
+
+def encontrar_extremos(calificaciones): 
+    """
+        Función para encontrar la calificación máxima y mínima.
+        Arg: Calificaciones: Lista para almacenar las calificaciones.
+        Return: Tupla con la calificación máxima y mínima ingresada por el usuario.
+    """
+    for i in range(len(calificaciones)):
+        if i == 0:
+            maximo = i
+        elif calificaciones[i] > maximo:
+            maximo = i
+
+        if i == 0:
+            minimo = i
+        elif calificaciones[i] < minimo:
+            minimo = i
+
+    return maximo, minimo
+
+
+    
+
+def mostrar_resumen(calificaciones, materias) -> None:
+    """
+        Función para mostrar en consola el resumen de materias calificaciones, y estado.
+
+        Arg: Calificaciones: Lista para almacenar las calificaciones.
+             Materias: Lista para almacenar los nombres de las materias.
+        Return: None
+    """
+    umbral = 5.0
+    print("\nResumen de Materias y Calificaciones:")
+    
+    
+    aprobados, desaprobados = determinar_estado(calificaciones, umbral)
+    
+    for i in range(len(materias)):
+        print(f"{materias[i]}: {calificaciones[i]}")
+
+    promedio = calcular_promedio(calificaciones)
+    print(f"\nPromedio General: {promedio:.2f}")
+
+    print(f"\nMaterias Aprobadas: {len(aprobados)}")
+    print(f"\nMaterias Desaprobadas: {len(desaprobados)}")
+
+    maximo, minimo = encontrar_extremos(calificaciones)
+    print(f"\nCalificación Máxima: {calificaciones[maximo]} en {materias[maximo]}")
+    print(f"\nCalificación Mínima: {calificaciones[minimo]} en {materias[minimo]}")
+    
+    
+
+
+def main():
+    materias = []
+    calificaciones = []
+
+    calificaciones, materias  = ingresar_calificaciones(calificaciones, materias)
+
+    mostrar_resumen(calificaciones, materias)
+
+
+main()
