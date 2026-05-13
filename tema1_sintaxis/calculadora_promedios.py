@@ -29,20 +29,31 @@ def ingresar_calificaciones():
 
         Arg: Calificaciones: Lista para almacenar las calificaciones.
              Materias: Lista para almacenar los nombres de las materias.
-        Return: Calificaciones y Materias actualizadas con los datos ingresados por el usuario.
+        Return: 
+            Calificaciones actualizadas con los datos ingresados por el usuario.
+            Materias actualizadas con los datos ingresados por el usuario.
     """
-    materias = []
     calificaciones = []
+    materias = []
+    
     i = 0
     while True:
         materia = input(f"Ingrese el nombre de la materia {i+1}  ")
-        calificacion = float(input(f"Ingrese la calificación para {materia} (entre 1 y 10): "))
-        if 1 <= calificacion <= 10:
-            materias.append(materia)
+        calificacion = float(input(f"Ingrese la calificación para {materia} (entre 0 y 10): "))
+        while True: 
+            if calificacion < 0 or calificacion > 10:
+                print("La calificación debe estar entre 0 y 10. Intente nuevamente.")
+                calificacion = float(input(f"Ingrese la calificación para {materia} (entre 0 y 10): "))
+            else:
+                break
+
+        if 0 <= calificacion <= 10:
             calificaciones.append(calificacion)
+            materias.append(materia)
+            
             i += 1
         else:
-            print("La calificación debe estar entre 1 y 10. Intente nuevamente.")
+            print("La calificación debe estar entre 0 y 10. Intente nuevamente.")
         
         continuar = input("¿Desea ingresar otra materia? (s/n): ").lower()
         if continuar != 's':
