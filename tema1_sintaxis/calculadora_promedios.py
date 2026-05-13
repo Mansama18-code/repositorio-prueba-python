@@ -23,7 +23,7 @@ A. Desarrollo de una calculadora de promedios escolares en Python utilizando var
 '''
 
 
-def ingresar_calificaciones(calificaciones, materias):
+def ingresar_calificaciones():
     """"
         Función para ingresar materias y calificaciones, con validación de entrada.
 
@@ -31,6 +31,8 @@ def ingresar_calificaciones(calificaciones, materias):
              Materias: Lista para almacenar los nombres de las materias.
         Return: Calificaciones y Materias actualizadas con los datos ingresados por el usuario.
     """
+    materias = []
+    calificaciones = []
     i = 0
     while True:
         materia = input(f"Ingrese el nombre de la materia {i+1}  ")
@@ -48,6 +50,8 @@ def ingresar_calificaciones(calificaciones, materias):
     
     return calificaciones, materias
 
+
+
 def calcular_promedio(calificaciones): #Calcular Promedios de las calificaciones
     """
         Función para Calcular el promedio de las calificaciones.
@@ -61,6 +65,8 @@ def calcular_promedio(calificaciones): #Calcular Promedios de las calificaciones
         return 0
     
     return sum(calificaciones) / len(calificaciones)
+
+
 
 def determinar_estado(calificacion, umbral=5.0):
     """
@@ -85,24 +91,26 @@ def determinar_estado(calificacion, umbral=5.0):
         i += 1
     return aprobados, desaprobados
 
+
+
 def encontrar_extremos(calificaciones): 
     """
         Función para encontrar la calificación máxima y mínima.
         Arg: Calificaciones: Lista para almacenar las calificaciones.
-        Return: Tupla con la calificación máxima y mínima ingresada por el usuario.
+        Return: Tupla con el indice de la calificación máxima y mínima ingresada por el usuario.
     """
     for i in range(len(calificaciones)):
         if i == 0:
-            maximo = i
-        elif calificaciones[i] > maximo:
-            maximo = i
+            indice_maximo = i
+        elif calificaciones[i] > calificaciones[indice_maximo]:
+            indice_maximo = i
 
         if i == 0:
-            minimo = i
-        elif calificaciones[i] < minimo:
-            minimo = i
+            indice_minimo = i
+        elif calificaciones[i] < calificaciones[indice_minimo]:
+            indice_minimo = i
 
-    return maximo, minimo
+    return indice_maximo, indice_minimo
 
 
     
@@ -130,20 +138,19 @@ def mostrar_resumen(calificaciones, materias) -> None:
     print(f"\nMaterias Aprobadas: {len(aprobados)}")
     print(f"\nMaterias Desaprobadas: {len(desaprobados)}")
 
-    maximo, minimo = encontrar_extremos(calificaciones)
-    print(f"\nCalificación Máxima: {calificaciones[maximo]} en {materias[maximo]}")
-    print(f"\nCalificación Mínima: {calificaciones[minimo]} en {materias[minimo]}")
+    indice_maximo, indice_minimo = encontrar_extremos(calificaciones)
+    print(f"\nCalificación Máxima: {calificaciones[indice_maximo]} en {materias[indice_maximo]}")
+    print(f"\nCalificación Mínima: {calificaciones[indice_minimo]} en {materias[indice_minimo]}")
     
     
 
 
 def main():
-    materias = []
-    calificaciones = []
-
-    calificaciones, materias  = ingresar_calificaciones(calificaciones, materias)
-
+    calificaciones, materias  = ingresar_calificaciones()
     mostrar_resumen(calificaciones, materias)
 
 
-main()
+
+if __name__ == "__main__":
+    main()
+    print("Programa finalizado. Gracias por usar la calculadora de promedios escolares.")
