@@ -27,8 +27,8 @@ def ingresar_calificaciones():
     """"
         Función para ingresar materias y calificaciones, con validación de entrada.
 
-        Arg: Calificaciones: Lista para almacenar las calificaciones.
-             Materias: Lista para almacenar los nombres de las materias.
+        Arg: None
+
         Return: 
             Calificaciones actualizadas con los datos ingresados por el usuario.
             Materias actualizadas con los datos ingresados por el usuario.
@@ -48,9 +48,11 @@ def ingresar_calificaciones():
                 break
 
         if 0 <= calificacion <= 10:
+            #calificaciones[i] = calificacion
             calificaciones.append(calificacion)
             materias.append(materia)
-            
+            #i = 0 - Materia[0]: Matematicas, Califacion[0]: 6
+            #i = 1 - Materia[1]: Ingles, Califacion[1]: 8
             i += 1
         else:
             print("La calificación debe estar entre 0 y 10. Intente nuevamente.")
@@ -134,7 +136,7 @@ def mostrar_resumen(calificaciones, materias) -> None:
              Materias: Lista para almacenar los nombres de las materias.
         Return: None
     """
-    umbral = 5.0
+    umbral = 4.0
     print("\nResumen de Materias y Calificaciones:")
     
     
